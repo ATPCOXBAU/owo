@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [selectedSensor, setSelectedSensor] = useState('sensores');
+  
   const [sensorDataAutomatic, setSensorDataAutomatic] = useState({
     luminosidad: 0,
     temperatura: 0,
@@ -40,15 +41,15 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      fetchSensorDataAutomatic(selectedSensor);
+      fetchSensorDataAutomatic('/sensores');
     }, 10000); // 10000 ms = 10 segundos
 
     return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
   }, [selectedSensor]);
 
   useEffect(() => {
-    fetchSensorDataSelected(selectedSensor);
-  }, [selectedSensor]);
+    fetchSensorDataSelected('/sensores');
+  }, ['/sensores']);
 
   const fetchSensorDataAutomatic = async (sensor,  newState) => {
     try {
@@ -93,6 +94,7 @@ function App() {
         min: data.min,
         goodAir: data.goodAir,
         badAir: data.badAir,
+        
       }));
     } catch (error) {
       console.error(`Failed to fetch selected data for ${sensor}:`, error);
