@@ -37,7 +37,7 @@ function App() {
     { id: 6, name: 'Luminosidad', value: 0, unit: '' },
   ]);
 
-  const endpointUrl = 'http://192.168.0.20:5000';
+  const endpointUrl = 'http://192.168.0.19:5000';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -48,8 +48,8 @@ function App() {
   }, [selectedSensor]);
 
   useEffect(() => {
-    fetchSensorDataSelected('/sensores');
-  }, ['/sensores']);
+    fetchSensorDataSelected(selectedSensor);
+  }, [selectedSensor]);
 
   const fetchSensorDataAutomatic = async (sensor,  newState) => {
     try {
@@ -118,6 +118,11 @@ function App() {
 
   return (
     <>
+       {/* Titulo */}
+      <header className="header text-center p-3 mb-4 bg-dark text-white">
+        <h2>Estación Metereológica </h2>
+        <h1>ACL1_GRUPO9_PROYECTO2_JUN24 </h1>
+      </header>
       {/* Sección de estado de sensores */}
       <header className="header text-center p-3 mb-4 bg-dark text-white">
         <h1>Estado de Sensores</h1>
@@ -152,7 +157,7 @@ function App() {
 
         {/* Franja negra con barra de selección */}
         <header className="header text-center p-2 mb-3 bg-dark text-white w-100">
-          <h1>ACL1_GRUPO9_PROYECTO2_JUN24</h1>
+          <h1>Resultados Estadisticos</h1>
           <select
             className="form-select mt-3 w-40 mx-auto"
             onChange={handleSensorChange}
@@ -161,6 +166,7 @@ function App() {
             <option value="temperatura">Temperatura</option>
             <option value="humedad">Humedad</option>
             <option value="viento">Velocidad de Viento</option>
+            <option value="presion">Presion Atmosferica</option>
             <option value="aire">Calidad de Aire</option>
           </select>
         </header>
